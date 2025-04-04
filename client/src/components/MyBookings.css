@@ -1,0 +1,23 @@
+/* Hover Effect for Booking Cards */
+.hover-effect {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .hover-effect:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 18px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Responsive filters */
+  @media (max-width: 768px) {
+    .mb-2 {
+      margin-bottom: 10px;
+    }
+  }
+  
+  /* Custom Badge Styling */
+  .badge {
+    font-size: 14px;
+    padding: 6px 10px;
+    border-radius: 10px;
+  }
+  

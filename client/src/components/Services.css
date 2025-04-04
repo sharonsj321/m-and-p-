@@ -1,0 +1,49 @@
+/* ✅ Container styles */
+.container {
+    max-width: 1200px;
+  }
+  
+  /* ✅ Service Card Styling */
+  .service-link {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  .service-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: none;
+    border-radius: 15px;
+    overflow: hidden;
+  }
+  
+  .service-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+  }
+  
+  /* ✅ Card Image */
+  .service-img {
+    height: 180px;
+    object-fit: cover;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+  }
+  
+  /* ✅ Card Title */
+  .service-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
+  
+  /* ✅ Card Text */
+  .service-card .text-muted {
+    font-size: 0.9rem;
+  }
+  
+  /* ✅ Responsive design for smaller screens */
+  @media (max-width: 768px) {
+    .service-card {
+      margin-bottom: 15px;
+    }
+  }
+  

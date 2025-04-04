@@ -1,0 +1,23 @@
+.navbar-brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.nav-link {
+  font-size: 1.1rem;
+  margin-right: 10px;
+}
+.hero {
+  background: url("https://via.placeholder.com/1200x400") no-repeat center center/cover;
+  height: 200px;
+}
+
+.how-it-works h5 {
+  margin-top: 20px;
+}
+
+footer {
+  background-color: #343a40;
+  color: white;
+}
+

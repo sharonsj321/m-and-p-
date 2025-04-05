@@ -1,5 +1,7 @@
 require("dotenv").config();
 const express = require("express");
+const cors = require('cors');
+
 const connectDb = require("./src/config/Db");
 
 const app = express();
@@ -9,7 +11,6 @@ connectDb();
 app.use(cors({
   origin: 'https://m-and-p-frontend.vercel.app',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
 }));
 // Parse JSON
@@ -48,3 +49,4 @@ const PORT = process.env.PORT || 7000;
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
 });
+module.exports = app;

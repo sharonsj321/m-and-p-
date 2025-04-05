@@ -6,12 +6,22 @@ const connectDb = require("./src/config/Db");
 
 const app = express();
 connectDb();
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://m-and-p-frontend.vercel.app'
+];
 
-// ✅ Custom CORS Middleware - this WORKS on Vercel
 app.use(cors({
-  origin: 'https://m-and-p-frontend.vercel.app',
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  credentials: true
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 // Parse JSON
 app.use(express.json());

@@ -26,10 +26,10 @@ const Login = ({ onLogin }) => {
     setError("");
   
     try {
-      const response = await axios.post(`${API_BASE_URL}/auth/login`, formData, {
-        withCredentials: true // ✅ Important for CORS with credentials
+      const response = await axios.post(`${API_BASE_URL}auth/login`, formData, {
+        withCredentials: true
       });
-  
+      
       console.log("✅ Login Response:", response.data);
   
       const { token, user } = response.data;

@@ -6,29 +6,13 @@ const app = express();
 connectDb();
 
 // ✅ Custom CORS Middleware - this WORKS on Vercel
-const allowedOrigins = [
-  "http://localhost:5173",
-  "https://movers-and-packers-webfrontend.vercel.app",
-];
-
-app.use((req, res, next) => {
-  const origin = req.headers.origin;
-  if (allowedOrigins.includes(origin)) {
-    res.setHeader("Access-Control-Allow-Origin", origin);
-  }
-
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  res.setHeader("Access-Control-Allow-Credentials", "true");
-
-  if (req.method === "OPTIONS") {
-    return res.sendStatus(200);
-  }
-
-  next();
-});
-
-// ✅ Parse JSON
+app.use(cors({
+  origin: 'https://m-and-p-frontend.vercel.app',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
+}));
+// Parse JSON
 app.use(express.json());
 
 // ✅ Sample Route

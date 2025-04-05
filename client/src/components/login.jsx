@@ -26,7 +26,9 @@ const Login = ({ onLogin }) => {
     setError("");
   
     try {
-      const response = await axios.post(`${API_BASE_URL}/auth/login`, formData);
+      const response = await axios.post(`${API_BASE_URL}/auth/login`, formData, {
+        withCredentials: true // ✅ Important for CORS with credentials
+      });
   
       console.log("✅ Login Response:", response.data);
   
@@ -38,16 +40,16 @@ const Login = ({ onLogin }) => {
         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
         onLogin(user, token);
       } else {
-        setError(error.response?.data?.message || "Failed to login.");
+        setError(response?.data?.message || "Failed to login.");
       }
-    }catch (err) {
-        console.error("Login Error:", err);
-        const message =
-          err.response?.data?.message ||
-          err.message ||
-          "An unexpected error occurred.";
-        setError(message);
-      }
+    } catch (err) {
+      console.error("Login Error:", err);
+      const message =
+        err.response?.data?.message ||
+        err.message ||
+        "An unexpected error occurred.";
+      setError(message);
+    }
   };
   
 

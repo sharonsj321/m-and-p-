@@ -1,64 +1,65 @@
 require("dotenv").config();
 const express = require("express");
-const cors = require("cors");
 const connectDb = require("./src/config/Db");
 
 const app = express();
-
-// ✅ Connect to MongoDB
 connectDb();
 
-// ✅ CORS Configuration
+// ✅ Custom CORS Middleware - this WORKS on Vercel
 const allowedOrigins = [
-  'http://localhost:5173',
-  'https://m-and-p-frontend.vercel.app'
-];
+  "http://localhost:5173",
+'https://m-and-p-frontend.vercel.app'];
 
-app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-  credentials: true,
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"]
-}));
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+  }
 
-// ✅ Express Middleware
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(200);
+  }
+
+  next();
+});
+
+// ✅ Parse JSON
 app.use(express.json());
 
-// ✅ Test Route
+// ✅ Sample Route
 app.get("/", (req, res) => {
-  res.send("Backend running ✅");
+  res.send("Hello World - Backend is Working!");
 });
 
-// ✅ Load Routes
-app.use("/api/auth", require("./src/routes/authroutes"));
-app.use("/api/admin", require("./src/routes/adminroutes"));
-app.use("/api/users", require("./src/routes/userRoutes"));
-app.use("/api/services", require("./src/routes/serviceRoutes"));
-app.use("/api/bookings", require("./src/routes/bookingroutes"));
-app.use("/api/car-shifting", require("./src/routes/carShiftingRoutes"));
-app.use("/api/house-shifting", require("./src/routes/houseShiftingRoutes"));
-app.use("/api/office-shifting", require("./src/routes/officeShiftingRoutes"));
-app.use("/api/domestic-shift", require("./src/routes/domesticShiftRoutes"));
-app.use("/api/payments", require("./src/routes/paymentroutes"));
+// ✅ Routes
+const authRoutes = require("./src/routes/authroutes");
+const adminRoutes = require("./src/routes/adminroutes");
+const serviceRoutes = require("./src/routes/serviceRoutes");
+const userRoutes = require("./src/routes/userRoutes");
+const bookingRoutes = require("./src/routes/bookingroutes");
+const carShiftingRoutes = require("./src/routes/carShiftingRoutes");
+const houseShiftingRoutes = require("./src/routes/houseShiftingRoutes");
+const officeShiftingRoutes = require("./src/routes/officeShiftingRoutes");
+const domesticShiftRoutes = require("./src/routes/domesticShiftRoutes");
+const paymentRoutes = require("./src/routes/paymentroutes");
 
-// ✅ Error Handling Middleware (optional but recommended)
-app.use((err, req, res, next) => {
-  console.error("❌ Server Error:", err.message);
-  res.status(500).json({ message: "Server Error: " + err.message });
-});
+app.use("/api/auth", authRoutes);
+app.use("/api/admin", adminRoutes);
+app.use("/api/users", userRoutes);
+app.use("/api/services", serviceRoutes);
+app.use("/api/bookings", bookingRoutes);
+app.use("/api/car-shifting", carShiftingRoutes);
+app.use("/api/house-shifting", houseShiftingRoutes);
+app.use("/api/office-shifting", officeShiftingRoutes);
+app.use("/api/domestic-shift", domesticShiftRoutes);
+app.use("/api/payments", paymentRoutes);
 
-// ✅ Start server only if not in serverless mode
+// ✅ Start server
 const PORT = process.env.PORT || 7000;
-if (process.env.NODE_ENV !== "production" || !process.env.VERCEL) {
-  app.listen(PORT, () => {
-    console.log(`🚀 Server running on port ${PORT}`);
-  });
-}
-
-module.exports = app;
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on port ${PORT}`);
+});

@@ -3,7 +3,7 @@ import axios from "axios";
 import { Form, Button, Alert, Container, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-const API_BASE_URL = import.meta.env.VITE_API_URL; // ✅ Import API URL from .env
+const API_BASE_URL = import.meta.env.VITE_API_URL?.replace(/\/$/, '');
 
 const Login = ({ onLogin }) => {
   const [formData, setFormData] = useState({
@@ -26,10 +26,9 @@ const Login = ({ onLogin }) => {
     setError("");
   
     try {
-      const response = await axios.post(`${API_BASE_URL}auth/login`, formData, {
-        withCredentials: true
+      const response = await axios.post(`${API_BASE_URL}/auth/login`, formData, {
+        withCredentials: true,
       });
-      
       console.log("✅ Login Response:", response.data);
   
       const { token, user } = response.data;
@@ -43,7 +42,7 @@ const Login = ({ onLogin }) => {
         setError(response?.data?.message || "Failed to login.");
       }
     } catch (err) {
-      console.error("Login Error:", err);
+      console.error("Login Error:", err.response?.data || err.message);
       const message =
         err.response?.data?.message ||
         err.message ||

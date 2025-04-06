@@ -10,8 +10,8 @@ connectDb();
 
 // ✅ CORS Configuration
 const allowedOrigins = [
-  'http://localhost:5173',
-  'https://m-and-p-frontend.vercel.app'
+  'https://m-and-p-frontend.vercel.app',
+  'http://localhost:5173'
 ];
 
 app.use(cors({

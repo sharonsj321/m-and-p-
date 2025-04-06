@@ -10,11 +10,11 @@ connectDb();
 
 // ✅ CORS Configuration
 const allowedOrigins = [
-  'https://m-and-p-frontend.vercel.app',
-  'http://localhost:5173'
+  'http://localhost:5173',
+  'https://m-and-p-frontend.vercel.app'
 ];
 
-app.use(cors({
+const corsOptions = {
   origin: function (origin, callback) {
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
@@ -25,7 +25,12 @@ app.use(cors({
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"]
-}));
+};
+
+app.use(cors(corsOptions));
+
+// ✅ Handle OPTIONS for all routes (needed for CORS preflight)
+app.options("*", cors(corsOptions));
 
 // ✅ Express Middleware
 app.use(express.json());
@@ -33,6 +38,12 @@ app.use(express.json());
 // ✅ Test Route
 app.get("/", (req, res) => {
   res.send("Backend running ✅");
+});
+
+// ✅ Log request origin (optional for debugging)
+app.use((req, res, next) => {
+  console.log("🔍 Origin:", req.headers.origin);
+  next();
 });
 
 // ✅ Load Routes
@@ -47,13 +58,13 @@ app.use("/api/office-shifting", require("./src/routes/officeShiftingRoutes"));
 app.use("/api/domestic-shift", require("./src/routes/domesticShiftRoutes"));
 app.use("/api/payments", require("./src/routes/paymentroutes"));
 
-// ✅ Error Handling Middleware (optional but recommended)
+// ✅ Error Handling Middleware
 app.use((err, req, res, next) => {
   console.error("❌ Server Error:", err.message);
   res.status(500).json({ message: "Server Error: " + err.message });
 });
 
-// ✅ Start server only if not in serverless mode
+// ✅ Only run the server if not on Vercel
 const PORT = process.env.PORT || 7000;
 if (process.env.NODE_ENV !== "production" || !process.env.VERCEL) {
   app.listen(PORT, () => {

@@ -14,7 +14,7 @@ const Signup = () => {
   const [success, setSuccess] = useState("");
   const navigate = useNavigate();
   
-  const API_URL = import.meta.env.VITE_API_URL; // ✅ Use environment variable
+  const API_BASE_URL = import.meta.env.VITE_API_URL; // ✅ Use environment variable
 
   // Handle input change
   const handleChange = (e) => {
@@ -30,7 +30,7 @@ const Signup = () => {
     console.log("Form Data:", formData);
   
     try {
-      const response = await axios.post(`${API_URL}/auth/signup`, formData);
+      const response = await axios.post(`${API_BASE_URL}/auth/signup`, formData);
   
       console.log("Response:", response.data);
   

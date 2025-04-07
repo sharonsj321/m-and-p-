@@ -12,7 +12,6 @@ const Login = ({ onLogin }) => {
   });
   const [error, setError] = useState("");
 
-  // Handle input change
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -20,19 +19,17 @@ const Login = ({ onLogin }) => {
     });
   };
 
-  // ✅ Handle login submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
-  
+
     try {
       const response = await axios.post(`${API_BASE_URL}/auth/login`, formData, {
         withCredentials: true,
       });
-      console.log("✅ Login Response:", response.data);
-  
+
       const { token, user } = response.data;
-  
+
       if (token && user) {
         localStorage.setItem("token", token);
         localStorage.setItem("user", JSON.stringify(user));
@@ -42,7 +39,6 @@ const Login = ({ onLogin }) => {
         setError(response?.data?.message || "Failed to login.");
       }
     } catch (err) {
-      console.error("Login Error:", err.response?.data || err.message);
       const message =
         err.response?.data?.message ||
         err.message ||
@@ -50,68 +46,81 @@ const Login = ({ onLogin }) => {
       setError(message);
     }
   };
-  
 
   return (
-    <Container className="d-flex justify-content-center align-items-center min-vh-100">
-      <Card className="shadow-lg p-4 rounded-lg" style={{ width: "400px" }}>
-        <Card.Body>
-          <h2 className="text-center mb-4 fw-bold">🔐 Login</h2>
+    <Container
+      className="d-flex justify-content-center align-items-center min-vh-100"
+      style={{
+        backgroundImage: "url('http://allindiamoversandpackers.in/wp-content/uploads/2020/01/service-06.jpg')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
+      <div
+        style={{
+          backgroundColor: "rgba(255, 255, 255, 0.9)", // ✅ Light overlay for readability
+          padding: "2rem",
+          borderRadius: "20px",
+          boxShadow: "0 0 20px rgba(0, 0, 0, 0.2)",
+        }}
+      >
+        <Card className="border-0" style={{ width: "400px", background: "transparent" }}>
+          <Card.Body>
+            <h2 className="text-center mb-4 fw-bold">🔐 Login</h2>
 
-          {/* Error Alert */}
-          {error && <Alert variant="danger">{error}</Alert>}
+            {error && <Alert variant="danger">{error}</Alert>}
 
-          {/* Login Form */}
-          <Form onSubmit={handleSubmit}>
-            <Form.Group controlId="email" className="mb-3">
-              <Form.Label>Email Address</Form.Label>
-              <Form.Control
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                placeholder="Enter your email"
-                className="rounded-pill"
-                required
-              />
-            </Form.Group>
+            <Form onSubmit={handleSubmit}>
+              <Form.Group controlId="email" className="mb-3">
+                <Form.Label>Email Address</Form.Label>
+                <Form.Control
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  placeholder="Enter your email"
+                  className="rounded-pill"
+                  required
+                />
+              </Form.Group>
 
-            <Form.Group controlId="password" className="mb-3">
-              <Form.Label>Password</Form.Label>
-              <Form.Control
-                type="password"
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-                placeholder="Enter your password"
-                className="rounded-pill"
-                required
-              />
-            </Form.Group>
+              <Form.Group controlId="password" className="mb-3">
+                <Form.Label>Password</Form.Label>
+                <Form.Control
+                  type="password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  placeholder="Enter your password"
+                  className="rounded-pill"
+                  required
+                />
+              </Form.Group>
 
-            <Button
-              variant="primary"
-              type="submit"
-              className="w-100 rounded-pill mb-3"
-            >
-              Login
-            </Button>
-          </Form>
+              <Button
+                variant="primary"
+                type="submit"
+                className="w-100 rounded-pill mb-3"
+              >
+                Login
+              </Button>
+            </Form>
 
-          {/* Forgot Password & Signup Links */}
-          <div className="text-center mt-3">
-            <Link to="/forgot-password" className="text-decoration-none">
-              Forgot Password?
-            </Link>
-          </div>
-          <div className="text-center mt-2">
-            <span>Don't have an account? </span>
-            <Link to="/register" className="text-primary fw-bold text-decoration-none">
-              Sign Up
-            </Link>
-          </div>
-        </Card.Body>
-      </Card>
+            <div className="text-center mt-3">
+              <Link to="/forgot-password" className="text-decoration-none">
+                Forgot Password?
+              </Link>
+            </div>
+            <div className="text-center mt-2">
+              <span>Don't have an account? </span>
+              <Link to="/register" className="text-primary fw-bold text-decoration-none">
+                Sign Up
+              </Link>
+            </div>
+          </Card.Body>
+        </Card>
+      </div>
     </Container>
   );
 };

@@ -40,6 +40,21 @@ app.get("/", (req, res) => {
   res.send("Backend running ✅");
 });
 
+// ✅ Example Async Route
+const someAsyncFunc = async () => {
+  return { message: "Hello from async route!" };
+};
+
+app.get("/api/example", async (req, res) => {
+  try {
+    const result = await someAsyncFunc();
+    res.status(200).json(result);
+  } catch (error) {
+    console.error("❌ /api/example Error:", error.message);
+    res.status(500).json({ error: "Server Error" });
+  }
+});
+
 // ✅ Log request origin (optional for debugging)
 app.use((req, res, next) => {
   console.log("🔍 Origin:", req.headers.origin);

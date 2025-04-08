@@ -8,7 +8,7 @@ connectDb();
 // ✅ Custom CORS Middleware - this WORKS on Vercel
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://m-and-p-frontend.vercel.app/",
+'https://m-and-p-frontend.vercel.app',
 ];
 
 app.use((req, res, next) => {
@@ -46,7 +46,7 @@ const carShiftingRoutes = require("./src/routes/carShiftingRoutes");
 const houseShiftingRoutes = require("./src/routes/houseShiftingRoutes");
 const officeShiftingRoutes = require("./src/routes/officeShiftingRoutes");
 const domesticShiftRoutes = require("./src/routes/domesticShiftRoutes");
-const paymentRoutes = require("./src/routes/paymentroutes");
+// const paymentRoutes = require("./src/routes/paymentroutes");
 
 app.use("/api/auth", authRoutes);
 app.use("/api/admin", adminRoutes);
@@ -57,10 +57,13 @@ app.use("/api/car-shifting", carShiftingRoutes);
 app.use("/api/house-shifting", houseShiftingRoutes);
 app.use("/api/office-shifting", officeShiftingRoutes);
 app.use("/api/domestic-shift", domesticShiftRoutes);
-app.use("/api/payments", paymentRoutes);
+// app.use("/api/payments", paymentRoutes);
 
 // ✅ Start server
 const PORT = process.env.PORT || 7000;
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
 });
+
+
+

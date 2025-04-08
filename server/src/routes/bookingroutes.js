@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const Booking = require('../models/bookingmodel');
 
 // ✅ Import middlewares
 const { verifyToken, verifyRole } = require("../middlewares/authMiddleware");
@@ -7,7 +8,6 @@ const { verifyToken, verifyRole } = require("../middlewares/authMiddleware");
 // ✅ Import controllers
 const {
   getMyBookings,
-  getBookings,
   createBooking,
   getBookingById,
   updateBooking,
@@ -18,8 +18,6 @@ const {
 router.get("/my-bookings", verifyToken, getMyBookings);
 router.get("/", verifyToken, getMyBookings);
 
-router.post("/", createBooking);
-router.get("/", getBookings);
 
 // ✅ Create Booking
 router.post("/", verifyToken, createBooking);
@@ -33,6 +31,5 @@ router.put("/:id", verifyToken, updateBooking);
 // ✅ Delete Booking
 router.delete("/:id", verifyToken, deleteBooking);
 router.put("/:id/update-status", verifyToken, updateBookingStatus);
-
 
 module.exports = router;

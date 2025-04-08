@@ -24,10 +24,12 @@ const Login = ({ onLogin }) => {
     setError("");
 
     try {
-      const response = await axios.post(`${API_BASE_URL}/auth/login`, formData);
+      const response = await axios.post(`${API_BASE_URL}/auth/login`, formData,
 
-      console.log("✅ Login Response:", response.data);
-
+      {
+        withCredentials: true, // ✅ Required for cookies/auth headers
+      }
+    );
       const { token, user } = response.data;
 
       if (token && user) {

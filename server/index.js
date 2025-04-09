@@ -8,7 +8,7 @@ connectDb();
 const corsOptions = {
   credentials: true,
   origin: ['https://m-and-p-frontend.vercel.app']};
-app.use(cors(corsOptions));
+app.use(cors());
 // ✅ Custom CORS Middleware - this WORKS on Vercel
 // const allowedOrigins = [
   

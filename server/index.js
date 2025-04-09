@@ -11,7 +11,7 @@ const corsOptions = {
   origin: '*',  
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE' 
 }
-app.use(cors(corsOptions))
+app.use(cors({withCredentials:true}))
 // ✅ Custom CORS Middleware - this WORKS on Vercel
 // const allowedOrigins = [
   

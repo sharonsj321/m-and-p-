@@ -7,7 +7,7 @@ const app = express();
 connectDb();
 const corsOptions = {
   credentials: true,
-  origin: ['https://m-and-p-frontend.vercel.app', 'http://localhost:5173']};
+  origin: ['https://m-and-p-frontend.vercel.app']};
 app.use(cors(corsOptions));
 // ✅ Custom CORS Middleware - this WORKS on Vercel
 // const allowedOrigins = [

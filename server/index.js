@@ -7,8 +7,9 @@ connectDb();
 
 // ✅ Custom CORS Middleware - this WORKS on Vercel
 const allowedOrigins = [
-  "http://localhost:5173",
+  
 'https://m-and-p-frontend.vercel.app',
+"http://localhost:5173",
 ];
 
 app.use((req, res, next) => {

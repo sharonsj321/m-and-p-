@@ -5,10 +5,13 @@ const connectDb = require("./src/config/Db");
 
 const app = express();
 connectDb();
-const corsOptions = {
-  credentials: true,
-  origin: ['https://m-and-p-frontend.vercel.app']};
-app.use(cors());
+const corsOptions = { 
+  // origin:'https://abc.onrender.com',
+  AccessControlAllowOrigin: '*',  
+  origin: '*',  
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE' 
+}
+app.use(cors(corsOptions))
 // ✅ Custom CORS Middleware - this WORKS on Vercel
 // const allowedOrigins = [
   

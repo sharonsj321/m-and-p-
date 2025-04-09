@@ -4,12 +4,15 @@ const connectDb = require("./src/config/Db");
 
 const app = express();
 connectDb();
-
+const corsOptions = {
+  credentials: true,
+  origin: ['https://m-and-p-frontend.vercel.app', 'http://localhost:5173']};
+app.use(cors(corsOptions));
 // ✅ Custom CORS Middleware - this WORKS on Vercel
 const allowedOrigins = [
   
 "https://m-and-p-frontend.vercel.app",
-// "http://localhost:5173",
+"http://localhost:5173",
 ];
 
 app.use((req, res, next) => {
@@ -18,9 +21,9 @@ app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", origin);
   }
 
-  // res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-  // res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  // res.setHeader("Access-Control-Allow-Credentials", "true");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  res.setHeader("Access-Control-Allow-Credentials", "true");
 
   if (req.method === "OPTIONS") {
     return res.sendStatus(200);

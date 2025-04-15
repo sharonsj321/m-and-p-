@@ -6,7 +6,7 @@ const connectDb = require("./src/config/Db");
 const app = express();
 connectDb();
 app.use(cors({
-  origin: 'https://m-and-p-frontend.vercel.app',
+  origin: '*',
   
   credentials: true // if you're using cookies
 }));
@@ -17,22 +17,22 @@ app.use(cors({
 // "http://localhost:5173",
 // ];
 
-// app.use((req, res, next) => {
-//   const origin = req.headers.origin;
-//   if (allowedOrigins.includes(origin)) {
-//     res.setHeader("Access-Control-Allow-Origin", origin);
-//   }
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+  }
 
-//   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-//   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-//   res.setHeader("Access-Control-Allow-Credentials", "true");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  res.setHeader("Access-Control-Allow-Credentials", "true");
 
-//   if (req.method === "OPTIONS") {
-//     return res.sendStatus(200);
-//   }
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(200);
+  }
 
-//   next();
-// });
+  next();
+});
 
 // ✅ Parse JSON
 app.use(express.json());

@@ -26,9 +26,9 @@ const Login = ({ onLogin }) => {
     try {
       const response = await axios.post(`${API_BASE_URL}/auth/login`, formData,
 
-      {
-        withCredentials: true, // ✅ Required for cookies/auth headers
-      }
+      // {
+      //   withCredentials: true, // ✅ Required for cookies/auth headers
+      // }
     );
       const { token, user } = response.data;
 

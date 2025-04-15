@@ -11,11 +11,10 @@ app.use(cors({
   credentials: true // if you're using cookies
 }));
 // ✅ Custom CORS Middleware - this WORKS on Vercel
-// const allowedOrigins = [
-  
-// "https://m-and-p-frontend.vercel.app",
-// "http://localhost:5173",
-// ];
+const allowedOrigins = [
+  "https://m-and-p-frontend.vercel.app",
+"http://localhost:5173",
+];
 
 app.use((req, res, next) => {
   const origin = req.headers.origin;

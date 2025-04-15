@@ -24,16 +24,28 @@ const Login = ({ onLogin }) => {
     setError("");
 
     try {
-      const response = await axios.post(`${API_BASE_URL}/auth/login`, formData,
+    //   const response = await axios.post(`${API_BASE_URL}/auth/login`, formData,
 
-      // {
-      //   withCredentials: true, // ✅ Required for cookies/auth headers
-      // }
-      {
-        headers: {   'Content-Type': 'application/json',
-        }
-      }
-    );
+    //   // {
+    //   //   withCredentials: true, // ✅ Required for cookies/auth headers
+    //   // }
+    //   {
+    //     headers: {   'Content-Type': 'application/json',
+    //     }
+    //   }
+    // );
+    
+    const response=await fetch('https://m-and-p-backend.vercel.app/api/auth/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        // Add any authentication headers if needed
+        // 'Authorization': 'Bearer your-token'
+      },
+      body: JSON.stringify(
+      formData
+      )
+    })
       const { token, user } = response.data;
 
       if (token && user) {

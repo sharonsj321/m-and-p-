@@ -29,6 +29,10 @@ const Login = ({ onLogin }) => {
       // {
       //   withCredentials: true, // ✅ Required for cookies/auth headers
       // }
+      {
+        headers: {   'Content-Type': 'application/json',
+        }
+      }
     );
       const { token, user } = response.data;
 

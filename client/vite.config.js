@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://localhost:7000',
+        target: 'https://m-and-p-backend.vercel.app',
         changeOrigin: true,
         rewrite: path => path.replace(/^\/api/, '')
       }

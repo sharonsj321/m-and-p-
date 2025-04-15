@@ -6,7 +6,7 @@ const connectDb = require("./src/config/Db");
 const app = express();
 connectDb();
 app.use(cors({
-  origin: "http://localhost:5173",
+  origin: 'https://m-and-p-frontend.vercel.app',
   
   credentials: true // if you're using cookies
 }));

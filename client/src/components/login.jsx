@@ -35,8 +35,9 @@ const Login = ({ onLogin }) => {
     //   }
     // );
     
-    const response=await fetch('https://m-and-p-backend.vercel.app/api/auth/login', {
+    const data=await fetch('https://m-and-p-backend.vercel.app/api/auth/login', {
       method: 'POST',
+      mode: 'no-cors',
       headers: {
         'Content-Type': 'application/json',
         // Add any authentication headers if needed
@@ -46,6 +47,7 @@ const Login = ({ onLogin }) => {
       formData
       )
     })
+    const response=await data.json()
       const { token, user } = response.data;
 
       if (token && user) {
